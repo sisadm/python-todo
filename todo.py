@@ -31,9 +31,9 @@ def display_list():
                 choice = input("\nWould you like to add a New Task?\n (Y/N)")
 
                 if(choice == "y" or choice == "Y"):
-                    print("Yes")
+                    add_task()
                 else:
-                    print("no")
+                    return 
             
             else:
                 print("\nYour To Do List:")
@@ -50,15 +50,25 @@ def add_task():
     description = input("\nYour task: ")
     status = input("\nStatus: ")
 
-    with open(file_path, 'w') as f:
-        # file_data = json.load(f)
-
-        file_data = {
+    new_data = {
             "description": description,
             "status" : status
-        }
+    }
 
-        json.dump(file_data, f, indent=4)
+    try:
+        with open(file_path, "r") as file_read:
+            data = json.load(file_read)
+
+    except (json.JSONDecodeError, FileNotFoundError):
+        data = []        
+
+    data.append(new_data)
+
+    with open(file_path, 'w') as file_write:
+        
+
+
+        json.dump(data, file_write, indent=4)
 
         
 
