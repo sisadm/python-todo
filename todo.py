@@ -18,10 +18,11 @@ def main_menu():
     return choice
 
 def display_list():
+    
+    # opening the json file
     try:
         with open(file_path, "r") as f:
-        
-
+    
             file_data = json.load(f)
 
             index = 1
