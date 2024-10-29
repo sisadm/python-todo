@@ -20,8 +20,7 @@ def main_menu():
 def display_list():
     try:
         with open(file_path, "r") as f:
-            
-
+        
 
             file_data = json.load(f)
 
@@ -47,6 +46,22 @@ def display_list():
         print("Error to read the file")
     
 
+def add_task():
+    description = input("\nYour task: ")
+    status = input("\nStatus: ")
+
+    with open(file_path, 'w') as f:
+        # file_data = json.load(f)
+
+        file_data = {
+            "description": description,
+            "status" : status
+        }
+
+        json.dump(file_data, f, indent=4)
+
+        
+
 
 def run_application():
     
@@ -57,7 +72,7 @@ def run_application():
         if choice == "1":
             display_list()
         elif choice == "2":
-            print("you are in choice Two")
+            add_task()
         elif choice == "3":
             print("you are in choice Three")
         elif choice == "4":
