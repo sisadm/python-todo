@@ -89,8 +89,18 @@ def add_task():
 
 
 def edit_task():
+
+    print("\nWhich task would you like to change?")
+    display_list()
     
-    return
+    input("Please write the number: ")
+
+    try:
+        # calling read_file function
+        file_data = read_file()
+        
+    except:
+        print("Error to read the file")
         
 
 
@@ -105,7 +115,7 @@ def run_application():
         elif choice == "2":
             add_task()
         elif choice == "3":
-            print("you are in choice Three")
+            edit_task()
         elif choice == "4":
             print("Exiting the application.")
             break
