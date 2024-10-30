@@ -5,6 +5,11 @@ import os
 # file path
 file_path = 'tasks.json'
 
+
+def read_file():
+    with open(file_path, "r") as f:
+        return json.load(f)
+
 # main menu function
 def main_menu():
 
@@ -38,9 +43,8 @@ def display_list():
     else:
         # opening the json file
         try:
-            with open(file_path, "r") as f:
-        
-                file_data = json.load(f)
+                # calling read_file function
+                file_data = read_file()
 
                 index = 1
 
@@ -68,9 +72,7 @@ def add_task():
 
     # opening the file for read
     try:
-        with open(file_path, "r") as file_read:
-            # save it as a array
-            data = json.load(file_read)
+        data = read_file()
 
     except (json.JSONDecodeError, FileNotFoundError):
         # if something went wrong creating an empty array
@@ -85,6 +87,10 @@ def add_task():
         # dump back the data with the new dictionary
         json.dump(data, file_write, indent=4)
 
+
+def edit_task():
+    
+    return
         
 
 
