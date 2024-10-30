@@ -1,5 +1,7 @@
 import json
 
+import os
+
 # file path
 file_path = 'tasks.json'
 
@@ -18,39 +20,46 @@ def main_menu():
     return choice
 
 def display_list():
+
     
-    # opening the json file
-    try:
-        with open(file_path, "r") as f:
-    
-            file_data = json.load(f)
+    is_empty = os.stat(file_path).st_size
 
-            index = 1
+    if(is_empty == 0):
+        
+        print("\nYou dont have anything in your List.")
+        choice = input("\nWould you like to add a New Task?\n (Y/N)")
 
-            if(len(file_data) == 0):
-                print("\nYou dont have anything in your List.")
-                choice = input("\nWould you like to add a New Task?\n (Y/N)")
+        if(choice == "y" or choice == "Y"):
+            add_task()
+        else:
+            return 
 
-                if(choice == "y" or choice == "Y"):
-                    add_task()
-                else:
-                    return 
-            
-            else:
+    else:
+        # opening the json file
+        try:
+            with open(file_path, "r") as f:
+        
+                file_data = json.load(f)
+
+                index = 1
+
                 print("\nYour To Do List:")
+
                 for task in file_data:
                     print(f"{index}.", task["description"])
                     index += 1
 
+            
+        except:
+            print("Error to read the file")
         
-    except:
-        print("Error to read the file")
-    
 
 def add_task():
+    # input from user
     description = input("\nYour task: ")
     status = input("\nStatus: ")
 
+    # save
     new_data = {
             "description": description,
             "status" : status
