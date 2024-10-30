@@ -21,7 +21,7 @@ def main_menu():
 
 def display_list():
 
-    
+    # checking the file contains anything
     is_empty = os.stat(file_path).st_size
 
     if(is_empty == 0):
@@ -34,6 +34,7 @@ def display_list():
         else:
             return 
 
+    # if it has loop through each element and display it
     else:
         # opening the json file
         try:
@@ -59,25 +60,29 @@ def add_task():
     description = input("\nYour task: ")
     status = input("\nStatus: ")
 
-    # save
+    # save as a dictionary
     new_data = {
             "description": description,
             "status" : status
     }
 
+    # opening the file for read
     try:
         with open(file_path, "r") as file_read:
+            # save it as a array
             data = json.load(file_read)
 
     except (json.JSONDecodeError, FileNotFoundError):
+        # if something went wrong creating an empty array
         data = []        
 
+    # adding the new data into the loaded json data
     data.append(new_data)
 
+    # opening to write
     with open(file_path, 'w') as file_write:
         
-
-
+        # dump back the data with the new dictionary
         json.dump(data, file_write, indent=4)
 
         
