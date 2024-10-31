@@ -6,9 +6,19 @@ import os
 file_path = 'tasks.json'
 
 
+# file reading function 
 def read_file():
     with open(file_path, "r") as f:
         return json.load(f)
+
+# write into file function
+def write_file(new_data):
+        # opening to write
+    with open(file_path, 'w') as file_write:
+        
+        # dump back the data with the new dictionary
+        json.dump(new_data, file_write, indent=4)
+
 
 # main menu function
 def main_menu():
@@ -81,11 +91,9 @@ def add_task():
     # adding the new data into the loaded json data
     data.append(new_data)
 
-    # opening to write
-    with open(file_path, 'w') as file_write:
-        
-        # dump back the data with the new dictionary
-        json.dump(data, file_write, indent=4)
+    # 
+    write_file(data)
+
 
 
 def edit_task():
@@ -93,12 +101,24 @@ def edit_task():
     print("\nWhich task would you like to change?")
     display_list()
     
-    input("Please write the number: ")
+    number = input("Please write the number: ")
+    
+
 
     try:
         # calling read_file function
         file_data = read_file()
         
+        
+        which_part = input("\nWhat would you want to change?(description/status)")
+        
+
+        if(which_part.lower() == "description"):
+            new_description = input("Enter the new description: ")
+            file_data[(int(number) - 1)]["description"] = new_description
+            write_file(file_data)
+            
+
     except:
         print("Error to read the file")
         
