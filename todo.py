@@ -19,6 +19,12 @@ def write_file(new_data):
         # dump back the data with the new dictionary
         json.dump(new_data, file_write, indent=4)
 
+# display the list
+def display_again():
+    print("\nHere is the new To Do List:\n")
+    display_list()
+    
+
 
 # main menu function
 def main_menu():
@@ -61,7 +67,7 @@ def display_list():
                 print("\nYour To Do List:")
 
                 for task in file_data:
-                    print(f"{index}.", task["description"])
+                    print(f"{index}.", task["description"], " status:", task["status"])
                     index += 1
 
             
@@ -91,16 +97,18 @@ def add_task():
     # adding the new data into the loaded json data
     data.append(new_data)
 
-    # 
+    # write it into the jsone file
     write_file(data)
 
+    display_again()
 
 
-def edit_task():
 
-    print("\nWhich task would you like to change?")
-    display_list()
+def edit_remove_task(command):
+
     
+    display_list()
+    print("\nWhich task would you like to change?")
     number = input("Please write the number: ")
     
 
@@ -108,29 +116,33 @@ def edit_task():
     try:
         # calling read_file function
         file_data = read_file()
-        
-        
-        which_part = input("\nWhat would you want to change?(description/status) ")
-        
 
-        if(which_part.lower() == "description"):
-            new_description = input("Enter the new description: ")
-            file_data[(int(number) - 1)]["description"] = new_description
-            write_file(file_data)
+        if(command == "edit"):
+            which_part = input("\nWhat would you want to change?(description/status) ")
+            
+
+            if(which_part.lower() == "description"):
+                new_description = input("Enter the new description: ")
+                file_data[(int(number) - 1)]["description"] = new_description
+                write_file(file_data)
+            
+            elif(which_part.lower() == "status"):
+                new_status = input("Enter the new description: ")
+                file_data[(int(number) - 1)]["status"] = new_status
+                write_file(file_data)
+            else:
+                print("\nPlease type description or status into the field.")
         
-        elif(which_part.lower() == "status"):
-            new_status = input("Enter the new description: ")
-            file_data[(int(number) - 1)]["description"] = new_status
-            write_file(file_data)
         else:
-            print("\nPlease type description or status into the field.")
+            file_data.pop(number)
+            write_file(file_data)
 
     except:
         print("Error to read the file")
         
-    print("\nHere is the new To Do List:\n")
-    display_list()
-
+    display_again()
+    
+    
 
 def run_application():
     
@@ -143,8 +155,10 @@ def run_application():
         elif choice == "2":
             add_task()
         elif choice == "3":
-            edit_task()
+            edit_remove_task("edit")
         elif choice == "4":
+            edit_remove_task("remove")
+        elif choice == "5":
             print("Exiting the application.")
             break
         else:
