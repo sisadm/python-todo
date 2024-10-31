@@ -110,18 +110,26 @@ def edit_task():
         file_data = read_file()
         
         
-        which_part = input("\nWhat would you want to change?(description/status)")
+        which_part = input("\nWhat would you want to change?(description/status) ")
         
 
         if(which_part.lower() == "description"):
             new_description = input("Enter the new description: ")
             file_data[(int(number) - 1)]["description"] = new_description
             write_file(file_data)
-            
+        
+        elif(which_part.lower() == "status"):
+            new_status = input("Enter the new description: ")
+            file_data[(int(number) - 1)]["description"] = new_status
+            write_file(file_data)
+        else:
+            print("\nPlease type description or status into the field.")
 
     except:
         print("Error to read the file")
         
+    print("\nHere is the new To Do List:\n")
+    display_list()
 
 
 def run_application():
