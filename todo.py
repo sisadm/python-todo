@@ -106,17 +106,21 @@ def add_task():
 
 def edit_remove_task(command):
 
-    
+    # display the list existing list
     display_list()
+
+    # get an input
     print("\nWhich task would you like to change?")
     number = input("Please write the number: ")
     
 
 
     try:
+
         # calling read_file function
         file_data = read_file()
 
+        # edit task
         if(command == "edit"):
             which_part = input("\nWhat would you want to change?(description/status) ")
             
@@ -133,7 +137,9 @@ def edit_remove_task(command):
             else:
                 print("\nPlease type description or status into the field.")
         
+        # remove task
         else:
+            # pop the targeted number directory 
             file_data.pop(number)
             write_file(file_data)
 
