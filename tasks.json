@@ -1,0 +1,18 @@
+[
+    {
+        "description": "dog walk",
+        "status": "pending"
+    },
+    {
+        "description": "wash the dishes",
+        "status": "in progress"
+    },
+    {
+        "description": "take the bin out",
+        "status": "completed"
+    },
+    {
+        "description": "complete the homework",
+        "status": "pending"
+    }
+]
